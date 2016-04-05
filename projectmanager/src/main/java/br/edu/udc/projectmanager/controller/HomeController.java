@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,9 +20,9 @@ public class HomeController {
 	
 	@Autowired
 	private IActivityRepository activityRepository;
+	
 	@Autowired
 	private IProjectRepository projectRepository;
-	
 	
 	@RequestMapping("/login")
 	public ModelAndView home() 
@@ -36,13 +37,23 @@ public class HomeController {
 	}
 	
 	//FIXME teste de chamada Rest.
+	@CrossOrigin(origins = "http://localhost:3000")
 	@RequestMapping("/activityList")
 	public List<Activity> activityList () {
-		return  this.activityRepository.findAll();
+		return  this.activityRepository.qweqweqw();
 	}
+	@CrossOrigin(origins = "http://localhost:3000")
 	@RequestMapping("/projectList")
 	public List<Project> projectList () {
-		return  this.projectRepository.findAll();
+		return  this.projectRepository.find();
 	}
+	
+	@CrossOrigin(origins = "http://localhost:3000")
+	@RequestMapping("/listActivityByProject")
+	public List<Activity> listActivityByProject () {
+		return  this.activityRepository.listActivityByProject(1L);
+	}
+	
+	
 	
 }

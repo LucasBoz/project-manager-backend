@@ -35,13 +35,13 @@ public class Activity extends AbstractEntity {
 	/**
 	 * 
 	 */
-	@ManyToOne( optional = true, fetch = FetchType.EAGER )
-	private User owner;
+	@ManyToOne
+	private User user;
 	
 	/**
 	 * 
 	 */
-	@ManyToOne ( optional = false, fetch = FetchType.EAGER )
+	@ManyToOne ( optional = false )
 	private Project project;
 	
 	@OneToMany ( cascade = CascadeType.REMOVE, mappedBy="activity", fetch = FetchType.EAGER)
@@ -49,6 +49,9 @@ public class Activity extends AbstractEntity {
 	
 	@OneToMany ( cascade = CascadeType.REMOVE, mappedBy="activity", fetch = FetchType.EAGER)
 	private Set<Annotation> annotations = new HashSet<Annotation>();
+	
+	@ManyToOne ( optional = true, fetch = FetchType.EAGER )
+	private Milestone milestone;
 	/**
 	 * 
 	 */
@@ -65,47 +68,74 @@ public class Activity extends AbstractEntity {
 	{
 		super( id );
 	}
-
+	
 	/**
 	 * 
+	 * @param id
+	 * @param name
+	 * @param description
+	 * @param status
+	 * @param ownerId
+	 * @param ownerName
+	 * @param projectId
+	 * @param projectName
 	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result
-				+ ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + (status ? 1231 : 1237);
-		return result;
+	public Activity ( Long id, String name, String description, Boolean status, Long projectId, String projectName, Long ownerId, String ownerName)
+	{
+		 super ( id );
+		 this.name = name;
+		 this.description = description;
+		 this.status = status;
+
+		 User user = new User();
+		 user.setId( ownerId );
+		 user.setName( ownerName );
+		 
+		 Project project = new Project ();
+		 project.setId( projectId );
+		 project.setName( projectName );
+		 
+		 this.setProject( project );
+		 this.setUser( user );
+	}
+	
+	/**
+	 * ListActivityByProject
+	 * @param id
+	 * @param name
+	 * @param description
+	 * @param status
+	 * @param ownerId
+	 */
+	public Activity ( Long id, String name, String description, Boolean status, User user, Milestone milestone)
+	{
+		 super ( id );
+		 this.name = name;
+		 this.description = description;
+		 this.status = status;
+		 
+		 this.setUser( user );
+		 
+	
+		
+		 this.setMilestone( milestone );
+		 
+	}
+	
+	public Activity ( Long id, String name, String description, Boolean status, Long projectId, String projectName,String ownerName )
+	{
+		 super ( id );
+		 System.out.println(ownerName);
+		 this.name = name;
+		 this.description = description;
+		 this.status = status;
+		 User user = new User();
+		 user.setName(ownerName);
+		 this.setUser(user);
+		 
 	}
 
-	/**
-	 * 
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Activity other = (Activity) obj;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (status != other.status)
-			return false;
-		return true;
-	}
+
 
 	public String getName() {
 		return name;
@@ -131,12 +161,22 @@ public class Activity extends AbstractEntity {
 		this.status = status;
 	}
 
-	public User getOwner() {
-		return owner;
+	
+
+	public User getUser() {
+		return user;
 	}
 
-	public void setOwner(User owner) {
-		this.owner = owner;
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Milestone getMilestone() {
+		return milestone;
+	}
+
+	public void setMilestone(Milestone milestone) {
+		this.milestone = milestone;
 	}
 
 	public Project getProject() {

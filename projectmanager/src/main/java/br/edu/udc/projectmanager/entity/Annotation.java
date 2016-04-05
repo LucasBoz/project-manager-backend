@@ -18,7 +18,7 @@ public class Annotation extends AbstractEntity {
 	private User createdBy;
 	
 	@NotNull
-	@ManyToOne( fetch = FetchType.EAGER )
+	@ManyToOne( fetch = FetchType.LAZY )
 	private Activity activity;
 
 	public Annotation() {

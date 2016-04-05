@@ -40,15 +40,9 @@ public class Project extends AbstractEntity {
 	@ManyToOne( fetch = FetchType.EAGER )
 	private User projectManager;
 	
-	@OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "project" )
-	private Set<Activity> activities = new HashSet<Activity>();
-	
 	@ManyToMany( fetch = FetchType.EAGER )
 	private Set<User> members = new HashSet<User>();
 	
-	@OneToMany( cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "project" )
-	private Set<Milestone> milestones = new HashSet<Milestone>();
-
 	public Project() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -58,54 +52,29 @@ public class Project extends AbstractEntity {
 		super(id);
 		// TODO Auto-generated constructor stub
 	}
+	/**
+	 * 
+	 * @param id
+	 * @param name
+	 * @param initialDate
+	 * @param finalDate
+	 * @param status
+	 * @param projectManagerId
+	 * @param projectManagerName
+	 */
+	public Project ( Long id, String name, Calendar initialDate, Calendar finalDate, ProjectStatus status, Long projectManagerId, String projectManagerName)
+	{
+		 super ( id );
+		 this.name = name;
+		 this.initialDate = initialDate;
+		 this.finalDate = finalDate;
+		 this.status = status;
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result
-				+ ((finalDate == null) ? 0 : finalDate.hashCode());
-		result = prime * result
-				+ ((initialDate == null) ? 0 : initialDate.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result
-				+ ((projectManager == null) ? 0 : projectManager.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
-		return result;
-	}
+		 User user = new User();
+		 user.setId( projectManagerId );
+		 user.setName( projectManagerName );
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Project other = (Project) obj;
-		if (finalDate == null) {
-			if (other.finalDate != null)
-				return false;
-		} else if (!finalDate.equals(other.finalDate))
-			return false;
-		if (initialDate == null) {
-			if (other.initialDate != null)
-				return false;
-		} else if (!initialDate.equals(other.initialDate))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (projectManager == null) {
-			if (other.projectManager != null)
-				return false;
-		} else if (!projectManager.equals(other.projectManager))
-			return false;
-		if (status != other.status)
-			return false;
-		return true;
+		 this.setProjectManager( user );
 	}
 
 	public String getName() {
@@ -148,14 +117,6 @@ public class Project extends AbstractEntity {
 		this.projectManager = projectManager;
 	}
 
-	public Set<Activity> getActivities() {
-		return activities;
-	}
-
-	public void setActivities(Set<Activity> activities) {
-		this.activities = activities;
-	}
-
 	public Set<User> getMembers() {
 		return members;
 	}
@@ -164,13 +125,6 @@ public class Project extends AbstractEntity {
 		this.members = members;
 	}
 
-	public Set<Milestone> getMilestones() {
-		return milestones;
-	}
-
-	public void setMilestones(Set<Milestone> milestones) {
-		this.milestones = milestones;
-	}
 	
 	
 	

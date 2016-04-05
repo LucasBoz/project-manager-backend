@@ -17,7 +17,7 @@ public class ActivityLog extends AbstractEntity{
 	@Enumerated(EnumType.ORDINAL)
 	private ActivityType activityType;
 	
-	@ManyToOne( fetch = FetchType.EAGER, optional = false )
+	@ManyToOne( fetch = FetchType.LAZY, optional = false )
 	private Activity activity;
 	
 	@ManyToOne( fetch = FetchType.EAGER, optional = true )

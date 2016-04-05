@@ -20,11 +20,6 @@
 	    controller: 'ProjectController',
 	    controllerAs: 'project'
 	  })
-	  .when('/user', {
-	    templateUrl: 'app/user/user.html',
-	    controller: 'UserController',
-	    controllerAs: 'userzz'
-	  })
 	  .otherwise({ //Caso ocorra uma tentativa de rota não existente redicionará para a principal.
 	    redirectTo: '/'
 	  });
