@@ -12,6 +12,10 @@ insert INTO public.project values (5, now(), now(), now(), now(), 'Project tal',
 insert INTO public.project values (6, now(), now(), now(), now(), 'Project 123',1, 2);
 insert INTO public.project values (7, now(), now(), now(), now(), 'hello ',1, 2);
 
+insert INTO public.milestone values (1, now(), now(),now(), now(), 'myyyyyy','note', 1);
+insert INTO public.milestone values (2, now(), now(),now(), now(), 'Freeeeeeeend','mnote yyyy', 1);
+insert INTO public.milestone values (3, now(), now(),now(), now(), 'o123ld','sdfsdfsdf' ,1);
+
 insert INTO public.activity values (1, now(), now(), 'act', 'a2ct ',true, 2, 1);
 insert INTO public.activity values (2, now(), now(), 'activ ','ac2tiv ',true, 2, 1);
 insert INTO public.activity values (3, now(), now(), 'hello ','he2llo ',true, 2, 1);
@@ -20,6 +24,4 @@ insert INTO public.activity values (5, now(), now(), 'ness ', 'n23ess ',true, 2,
 insert INTO public.activity values (6, now(), now(), 'my ','m123y ',true, 2, 1);
 insert INTO public.activity values (7, now(), now(), 'old','o123ld',true, 2, 1);
 
-insert INTO public.milestone values (1, now(), now(),now(), now(), 'myyyyyy','note', 1);
-insert INTO public.milestone values (2, now(), now(),now(), now(), 'Freeeeeeeend','mnote yyyy', 1);
-insert INTO public.milestone values (3, now(), now(),now(), now(), 'o123ld','sdfsdfsdf' ,1);
+
